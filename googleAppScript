@@ -1,0 +1,25 @@
+function doGet(e){
+  textOutput = ContentService.createTextOutput("Script Tilepan eLisa\nSilahkan upload file dengan method POST")
+  return textOutput
+}
+
+function doPost(e){
+  var nama = e.parameter.nama_file;
+  var data = e.parameter.data_file;
+  var status = uploadFile(nama, data);
+  return ContentService.createTextOutput(status);
+}
+
+function uploadFile(nama, data){
+  
+  try{
+    var folderTilepan = DriveApp.getFolderById("1Ae6rls8RdWA5R8PsmamPUxtmaCV3dQE5");
+    var blob = Utilities.newBlob(data, null, nama)
+    var file = folderTilepan.createFile(blob);
+    file.setName(nama);
+    return "sukses\n" + file.getId();
+  }catch(error){
+    return error.toString();
+  }
+  
+}

@@ -1,60 +1,25 @@
 <?php
+    require_once "elisa.php";
+    require_once "googleDrive.php";
+    //require_once "database.php";
 
-    $url = 'https://elisa.ugm.ac.id/user/archive/download/519203';
+    $indeks = 519202;
 
-
-
-    //inisialisasi curl
-    $ch = curl_init();
-    //pasang url
-    curl_setopt($ch, CURLOPT_URL, $url);
-    //ngambil result
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_VERBOSE, true);
-    //ngambil header juga, untuk nama file
-    curl_setopt($ch, CURLOPT_HEADER, true);
-    //timeout 20 detik
-    curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-
-    //eksekusi curl
-    $response = curl_exec($ch);
-
-    if($response === false){
-        //curl nya error
-        echo "cUrl gagal";
-        exit();
-    }
-
-    if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) == '404'){
-        //file nya gak ada, antara indeks blm keisi atau dihapus
-        echo "404 Not found";
-        exit();
-    }
-
-    if(curl_getinfo($ch, CURLINFO_RESPONSE_CODE) != '200'){
-        //tidak OK
-        echo "Result gagal";
-        var_dump($response);
-        exit();
-    }
+    $file = downloadElisa($indeks);
     
-    //pisahin header dan body (data filenya)
-    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-    $header = substr($response, 0, $header_size);
-    $body = substr($response, $header_size);
-    
-    //dapetin nama file (regex nyolong)
-    $regexNama = '/^Content-Disposition: .*?filename=(?<f>[^\s]+|\x22[^\x22]+\x22)\x3B?.*$/m';
-    if (preg_match($regexNama, $header, $mDispo)){
-        $filename = trim($mDispo['f'],' ";');
-    }else{
-          $filename = 'fileTanpaNama';
+    if($file === false){
+        echo "Gagal download $indeks";
+        //break;
+        exit();
+    }
+    echo $file['nama_file'];
+    $fileId = uploadDrive($file['nama_file'], $file['data_file']);
+
+    if($fileId === false){
+        echo "Gagal upload ke drive";
+        exit();
     }
 
-    //simpan file
-    file_put_contents('tilepan/' . $filename, $body);
+    var_dump($fileId);
 
-    //tutup curl handler
-    curl_close($ch);
-    echo "Done";
 ?>
