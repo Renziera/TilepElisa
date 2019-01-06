@@ -42,12 +42,12 @@
         $header = substr($response, 0, $header_size);
         $body = substr($response, $header_size);
         
-        //dapetin nama file (regex nyolong)
-        $regexNama = '/^Content-Disposition: .*?filename=(?<f>[^\s]+|\x22[^\x22]+\x22)\x3B?.*$/m';
-        if (preg_match($regexNama, $header, $mDispo)){
-            $filename = trim($mDispo['f'],' ";');
-        }else{
+        //dapetin nama file
+        $filename = strstr($header, 'filename="');
+        if ($filename === false){
             $filename = 'fileTanpaNama';
+        }else{
+            $filename = explode('"', $filename, 3)[1];
         }
 
         //tutup curl handler

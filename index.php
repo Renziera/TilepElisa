@@ -12,7 +12,7 @@
         //break;
         exit();
     }
-    echo $file['nama_file'];
+    
     $fileId = uploadDrive($file['nama_file'], $file['data_file']);
 
     if($fileId === false){
