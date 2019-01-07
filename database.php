@@ -53,12 +53,11 @@
         $query->execute();
     }
 
-    function addTilepan($conn, $nama_file, $indeks, $fileId, $tanggal){
-        $insertSQL = "INSERT INTO tilepan (nama_file, index_elisa, id_drive, tanggal) VALUES (:nama_file, :index_elisa, :id_drive, :tanggal)";
+    function addTilepan($conn, $nama_file, $indeks, $tanggal){
+        $insertSQL = "INSERT INTO tilepanku (nama_file, indeks_elisa, tanggal) VALUES (:nama_file, :index_elisa, :tanggal)";
 		$query = $conn->prepare($insertSQL);
         $query->bindParam(':nama_file', $nama_file );
         $query->bindParam(':index_elisa', $indeks );
-        $query->bindParam(':id_drive', $fileId );
         $query->bindParam(':tanggal', $tanggal );
 		$query->execute();
     }

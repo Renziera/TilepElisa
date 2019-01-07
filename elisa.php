@@ -12,6 +12,8 @@
         curl_setopt($ch, CURLOPT_VERBOSE, true);
         //ngambil header juga, untuk nama file
         curl_setopt($ch, CURLOPT_HEADER, true);
+        //cuma header saja
+        curl_setopt($ch, CURLOPT_NOBODY, true);
         //timeout 20 detik
         curl_setopt($ch, CURLOPT_TIMEOUT, 20);
 
@@ -36,14 +38,9 @@
             var_dump($response);
             return false;
         }
-        
-        //pisahin header dan body (data filenya)
-        $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-        $header = substr($response, 0, $header_size);
-        $body = substr($response, $header_size);
-        
+
         //dapetin nama file
-        $filename = strstr($header, 'filename="');
+        $filename = strstr($response, 'filename="');
         if ($filename === false){
             $filename = 'fileTanpaNama';
         }else{
@@ -53,12 +50,6 @@
         //tutup curl handler
         curl_close($ch);
 
-        //simpan file
-        //file_put_contents('tilepan/' . $filename, $body);
-
-        return array(
-            'nama_file' => $filename,
-            'data_file' => $body
-        );
+        return $filename;
     }
 ?>

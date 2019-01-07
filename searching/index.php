@@ -42,8 +42,8 @@
                 echo $result[$i]['nama_file'];
                 echo "</td>";
                 echo "<td>";
-                echo '<button type="button" onclick="location.href=\'https://drive.google.com/uc?export=download&id=';
-                echo $result[$i]['id_drive'];
+                echo '<button type="button" onclick="location.href=\'https://elisa.ugm.ac.id/user/archive/download/';
+                echo $result[$i]['indeks_elisa'];
                 echo '\'">Tilep</button>';
                 echo "</td>";
                 echo "</tr>";

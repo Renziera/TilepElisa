@@ -9,7 +9,7 @@
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
 
-        $rowCountQuery = 'SELECT COUNT(nama_file) FROM tilepan';
+        $rowCountQuery = 'SELECT COUNT(nama_file) FROM tilepanku';
         $query = $conn->prepare($rowCountQuery);
         $query->execute();
         $result = $query->fetchall();

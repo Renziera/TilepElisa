@@ -2,7 +2,6 @@
     //Hanya khusus dijalankan di cron job
     //Karena kalo browser reset koneksi, proses terminasi
     require_once "elisa.php";
-    require_once "googleDrive.php";
     require_once "database.php";
 
     date_default_timezone_set('Asia/Jakarta');
@@ -13,7 +12,7 @@
     }
 
     //tiap run iterasi dibatasi
-    $iterasi = 10;
+    $iterasi = 200;
 
     setRunning($conn, true);
     $indeks = getIndeksTerakhir($conn);
@@ -21,25 +20,15 @@
 
     for ($i=$iterasi; $i > 0; $i--) {
         
-        $file = downloadElisa($indeks);
+        $filename = downloadElisa($indeks);
         
-        if($file === false){
+        if($filename === false){
             $indeksKosong++;
             $indeks++;
             continue;
         }
 
-        $nama_file = $file['nama_file'];
-
-        $fileId = uploadDrive($nama_file, $file['data_file']);
-
-        if($fileId === false){
-            $indeksKosong++;
-            $indeks++;
-            continue;
-        }
-
-        addTilepan($conn, $nama_file, $indeks, $fileId, date('Ymd'));
+        addTilepan($conn, $filename, $indeks, date('Ymd'));
         
         $indeks++;
         $indeksKosong = 0;
