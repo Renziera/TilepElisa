@@ -7,21 +7,24 @@
             'data_file' => $data_file
         );
 
-        //siapin request
-        $options = array(
-            'http' => array(
-                'header' => "",
-                'method' => 'POST',
-                'content' => http_build_query($data)
-            )
-        );
-
         //url ke Google App Script
         $url = 'https://script.google.com/macros/s/AKfycbxNDs3gcqEL5ecUuedyX5VkJZG_Ztfv1oGd7DikzVuWg9EA8j6A/exec';
-    
-        //tembak request
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
+        
+        //inisialisasi curl
+        $ch = curl_init();
+
+        //Get the response from cURL
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        //Set the Url
+        curl_setopt($ch, CURLOPT_URL, $url);
+        //declare POST
+        curl_setopt($ch, CURLOPT_POST, 1);
+        //isi data
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        //eksekusi
+        $result = curl_exec ($ch);
+        //tutup curl
+        curl_close ($ch);
 
         if($result === false){
             return false;
