@@ -7,10 +7,14 @@
 </head>
 <body>
     <form action="#tilep" method="post">
-        <input type="text" name="search" placeholder="Masukkan kata kunci pencarian. . .">
+        <input type="text" name="search" placeholder="Masukkan kata kunci pencarian. . ." maxlength="30">
+        Batas upload 
+        <input type="date" name="date">
+        sampai
+        <input type="date" name="">
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <input type="submit" value="Cari">
     </form>
-    <br>
     <div style="height:550px;overflow:auto">
         <table>
             <tr>
@@ -38,7 +42,9 @@
                 echo $result[$i]['nama_file'];
                 echo "</td>";
                 echo "<td>";
-                echo '<button type="button">Tilep</button>';
+                echo '<button type="button" onclick="location.href=\'https://drive.google.com/uc?export=download&id=';
+                echo $result[$i]['id_drive'];
+                echo '\'">Tilep</button>';
                 echo "</td>";
                 echo "</tr>";
             }
