@@ -8,12 +8,11 @@
     if($isRunning){
         echo "Tilep sedang berjalan.<br>";
         echo "Indeks sekarang: " . getIndeksTerakhir($conn);
-        exit();
     }else{
         echo "Tilep sedang tidak berjalan.<br>";
         echo "Indeks terakhir: " . getIndeksTerakhir($conn);
     }
-
-    echo "Server time: " . date();
+    echo "<br><br>";
+    echo "Server time: " . date("H:i:s  d - m - Y");
 
 ?>
