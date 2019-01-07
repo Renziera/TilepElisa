@@ -23,9 +23,10 @@
         return $result[0]['value'];
     }
 
-    function incrementIndeks($conn){
-        $updateQuery = 'UPDATE data_tilepan SET value = value + 1 WHERE kunci="index_terakhir"';
+    function setIndeksTerakhir($conn, $value){
+        $updateQuery = 'UPDATE data_tilepan SET value = :value WHERE kunci="index_terakhir"';
         $query = $conn->prepare($updateQuery);
+        $query->bindParam(':value', $value);
         $query->execute();
     }
 
