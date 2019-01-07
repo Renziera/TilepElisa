@@ -11,7 +11,6 @@
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
     }catch(PDOException $e){
         echo "Database error<br>";
-        exit();
     }  
 
     function searchTilepan($conn, $katakunci){
@@ -22,5 +21,21 @@
         $query->execute();
         $result = $query->fetchall();
         return $result;
+    }
+
+    function limitTanggal($conn, $tanggalAwal, $tanggalAkhir){
+
+    }
+
+    function incrementSearchCount($conn){
+        $updateQuery = 'UPDATE data_tilepan SET value = value + 1 WHERE kunci="search_queries"';
+        $query = $conn->prepare($updateQuery);
+        $query->execute();
+    }
+
+    function incrementDownloadCount($conn){
+        $updateQuery = 'UPDATE data_tilepan SET value = value + 1 WHERE kunci="downloads_count"';
+        $query = $conn->prepare($updateQuery);
+        $query->execute();
     }
 ?>

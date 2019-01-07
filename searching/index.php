@@ -7,7 +7,7 @@
 </head>
 <body>
     <form action="#tilep" method="post">
-        <input type="text" name="search">
+        <input type="text" name="search" placeholder="Masukkan kata kunci pencarian. . .">
         <input type="submit" value="Cari">
     </form>
     <br>
@@ -25,18 +25,23 @@
             echo "Query pencarian minimal 3 huruf.";
         }else{
             require_once "database.php";
+            incrementSearchCount($conn);
             $result = searchTilepan($conn, $search);
+            
+            if(sizeof($result) === 0){
+                echo "Tidak ditemukan.";
+            }
 
-            foreach ($result as $row) {
+            for ($i = sizeof($result) - 1; $i > -1 ; $i--) { 
                 echo "<tr>";
                 echo "<td>";
-                echo $row['nama_file'];
+                echo $result[$i]['nama_file'];
                 echo "</td>";
                 echo "<td>";
                 echo '<button type="button">Tilep</button>';
                 echo "</td>";
                 echo "</tr>";
-            }   
+            }
         }  
     }  
 ?>
