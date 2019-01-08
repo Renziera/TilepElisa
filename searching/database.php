@@ -15,7 +15,7 @@
 
     function searchTilepan($conn, $katakunci){
         $katakunci = "%".$katakunci."%";
-        $searchSQL = 'SELECT nama_file, indeks_elisa FROM tilepanku WHERE nama_file LIKE :katakunci';
+        $searchSQL = 'SELECT nama_file, id FROM tilepanku WHERE nama_file LIKE :katakunci';
         $query = $conn->prepare($searchSQL);
         $query->bindParam(':katakunci', $katakunci);
         $query->execute();
