@@ -10,11 +10,11 @@
 <body>
 
 <?php
-    if(!isset($_GET['database_id'])){
+    if(!isset($_GET['kleng'])){
         echo "<h1>Request tidak valid >_<</h1>";
         exit();
     }
-    $id = $_GET['database_id'];
+    $id = $_GET['kleng'];
 
     if(!is_numeric($id)){
         echo "<h1>Request tidak valid >_<</h1>";

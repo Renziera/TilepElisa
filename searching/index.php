@@ -42,9 +42,9 @@
                 echo $result[$i]['nama_file'];
                 echo "</td>";
                 echo "<td>";
-                echo '<button type="button" onclick="window.open(\'http://adf.ly/20994703/https://renziera.web.id/tilepanelisa/?database_id=';
+                echo '<button type="button" onclick="window.open(\'http://adf.ly/20994703/https://renziera.web.id/tilepanelisa/?key=QE8h328sda&kleng=';
                 echo $result[$i]['id'];
-                echo '\',\'_blank\')">Tilep</button>';
+                echo '&sign=isekaiMipa\',\'_blank\')">Tilep</button>';
                 echo "</td>";
                 echo "</tr>";
             }
