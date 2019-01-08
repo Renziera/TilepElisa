@@ -23,6 +23,10 @@
         echo "Database error<br>";
     }  
 
+    $updateQuery = 'UPDATE data_tilepan SET value = value + 1 WHERE kunci="downloads_count"';
+    $query = $conn->prepare($updateQuery);
+    $query->execute();
+
     $querySQL = 'SELECT indeks_elisa FROM tilepanku WHERE id = :id';
     $query = $conn->prepare($querySQL);
     $query->bindParam(':id', $id);
